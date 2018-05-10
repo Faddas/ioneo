@@ -14,7 +14,6 @@
 		<input type="submit" name="valider" value="Valider">
 	</form>
 	<form name="form" method="post">
-		<p>Pseudo du joueur:<input type="text" name="pseudojoueur"/></p>
 		<p>Kills / round :<input type="text" name="kill"/></p>
 		<p>Kill / Deaths :<input type="text" name="ratio">
 		<p>Deaths / round:<input type="text" name="death">
@@ -23,6 +22,7 @@
 		<p>Malus:<input type="text" name="malus">
 		<input type="submit" name="sub" value="Valider">
 	</form>
+	<h3>Resultats apres calcul BDD :</h3>
 	<?php
 	try
 	{
@@ -46,7 +46,6 @@
 		}
 
 	if(isset($_POST['sub'])){
-		$joueurs_Pseudo=$_POST['pseudojoueur'];
 		$kill=$_POST['kill'];
 		$kill_deaths = $_POST['ratio'] ;
 		$death=$_POST['death'];
@@ -58,17 +57,22 @@
 		$damage_rounds = $_POST['damage'] /1.5;
 		$moyenne = ($kill_deaths+$kill_rounds+$damage_rounds)/3;
 		$total = $_POST['bonus'] + $moyenne;
-	    echo round($kill_rounds,2);
+	    echo('kill/rounds=');
+		echo round($kill_rounds,2);
 		echo'<br/>';
+		echo('KDA=');
 		echo round($kill_deaths,2);
 		echo'<br/>';
+		echo('Damage/rounds=');
 		echo round($damage_rounds,2);
 		echo'<br/>';
+		echo('Moyenne=');
 		echo round($moyenne,2);
 		echo'<br/>';
+		echo('Moyenne Global=');
 		echo round($total,2);
-		$rep=$bdd->prepare("INSERT INTO stats (Bonus) VALUES(?)");
-		$rep->execute(array($bonus));
+		$rep=$bdd->prepare("INSERT INTO stats (Kills_round,Kills_Deaths, Deaths_Rounds, Damage_Rounds, Bonus, Malus, Moyenne, Moyenne_Total) VALUES(?, ?, ?, ?, ?, ?, ?,?)");
+		$rep->execute(array($kill_rounds,$kill_deaths, $death, $damage_rounds,$bonus,$malus, $moyenne, $total));
 	}
 		?>
 </body>
