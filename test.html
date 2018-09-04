@@ -1,0 +1,62 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Premier widget</title>
+</head>
+
+<body>
+<canvas id="myChart"></canvas>
+<!-- jQuery cdn -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="crossorigin="anonymous"></script>
+<!-- Chart.js cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+<script>
+Chart.types.Doughnut.extend({
+	name: "DoughnutTextInside",
+	showTooltip: function() {
+		this.chart.ctx.save();
+		Chart.types.Doughnut.prototype.showTooltip.apply(this, arguments);
+		this.chart.ctx.restore();
+	},
+	draw: function() {
+		Chart.types.Doughnut.prototype.draw.apply(this, arguments);
+
+		var width = this.chart.width,
+			height = this.chart.height;
+
+		var fontSize = (height / 114).toFixed(2);
+		this.chart.ctx.font = fontSize + "em Verdana";
+		this.chart.ctx.textBaseline = "middle";
+
+		var text = "82%",
+			textX = Math.round((width - this.chart.ctx.measureText(text).width) / 2),
+			textY = height / 2;
+
+		this.chart.ctx.fillText(text, textX, textY);
+	}
+});
+
+var data = [{
+	value: 30,
+	color: "#F7464A"
+}, {
+	value: 50,
+	color: "#E2EAE9"
+}, {
+	value: 100,
+	color: "#D4CCC5"
+}, {
+	value: 40,
+	color: "#949FB1"
+}, {
+	value: 120,
+	color: "#4D5360"
+}];
+
+var DoughnutTextInsideChart = new Chart($('#myChart')[0].getContext('2d')).DoughnutTextInside(data, {
+	responsive: true
+});
+</script>
+</body>

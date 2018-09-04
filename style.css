@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  text-align: center;
+  background: #000000;
+}
+#page {
+  font-family: 'Roboto Light', trebuchet, arial;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 1024px)
+#map, #page, .slides, .slides img, header, .calque {
+  width: 1024px;
+}
+@media (min-width: 960px)
+#map, #page, .slides, .slides img, header, .calque {
+  width: 800px;
+}
+@media (min-width: 701px)
+#page, header, .slides, .slides img, #map {
+  width: 800px;
+}
