@@ -24,16 +24,8 @@
 	</form>
 	<h3>Resultats apres calcul BDD :</h3>
 	<?php
-	try
-	{
-	        $bdd = new PDO('mysql:host=localhost;dbname=ioneo', 'root', '');
-			$bdd->exec("set names utf8");
-			$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	}
-	catch(Exception $e)
-	{
-	            die('Erreur : '.$e->getMessage());
-	}
+  include_once('bdd.php');
+  
 		if (isset ($_POST['valider'])){
 			$nom=$_POST['nom'];
 			$prenom=$_POST['prenom'];

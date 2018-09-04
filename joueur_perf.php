@@ -9,9 +9,17 @@
 <form name="form" method="post">
 
        <label for="joueurs">joueurs 1</label><br />
-       <select name="joueurs" id="joueurs"onchange=" submitform();" >
+       <select name="joueurs" id="joueurs" >
 <?php
-  include_once('bdd.php');
+try
+{
+        $bdd = new PDO('mysql:host=localhost;dbname=ioneo', 'root', '');
+}
+catch(Exception $e)
+{
+            die('Erreur : '.$e->getMessage());
+}
+
 
 $reponse = $bdd->query('SELECT * FROM joueurs');
 while ($donnees = $reponse->fetch())
@@ -22,20 +30,6 @@ while ($donnees = $reponse->fetch())
 }
 
 $reponse->closeCursor();
-var_dump($_POST);
+
 ?>
 </select>
-<br><br>
-</form>
-
-<?php
-include("traitement.php");
- ?>
-<script type="text/javascript">
-function submitform()
-{
-  document.form.submit();
-}
-</script>
-</body>
-</html>
