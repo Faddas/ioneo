@@ -1,0 +1,7 @@
+SELECT joueurs.pseudo ,stats.Bonus
+FROM joueurs, stats
+WHERE joueurs.ID = stats.ID
+
+Jointures par l'id correspondant (ID table joueurs et ID Table stats )
+
+possibilite de le faire avec le pseudo
